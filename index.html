@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuoTask | Toy World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="logo"><span>🧸</span> DuoTask</div>
+    <div class="world-card">
+      <div class="world-avatar" id="worldAvatar">🤖</div>
+      <div><small>YOUR TOY WORLD</small><h3 id="worldName">Robot World</h3></div>
+    </div>
+
+    <p class="menu-label">WORKSPACE</p>
+    <button class="nav active" data-view="tasks">📋 <span>My Tasks</span></button>
+    <button class="nav" data-view="calendar">📅 <span>Calendar</span></button>
+    <button class="nav" data-view="goals">🎯 <span>My Goals</span></button>
+    <button class="nav" data-view="rewards">🎁 <span>Reward Shop</span></button>
+    <button class="nav" data-view="achievements">🏆 <span>Achievements</span></button>
+    <button class="nav" data-view="analytics">📊 <span>Analytics</span></button>
+
+    <div class="sidebar-bottom">
+      <p class="menu-label">CHOOSE YOUR WORLD</p>
+      <button class="world-btn selected" data-theme="boy">🚀 Boy Toy World</button>
+      <button class="world-btn" data-theme="girl">🦄 Girl Toy World</button>
+      <button class="world-btn" id="darkToggle">🌙 Dark Mode</button>
+      <p class="sidebar-note">Made for dreamers & achievers ✨</p>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow" id="dateLabel">YOUR PRODUCTIVITY PLAYGROUND</p>
+        <h1 id="pageTitle">Let's get things done! 🚀</h1>
+        <p class="muted">Small steps make big achievements.</p>
+      </div>
+      <div class="top-actions">
+        <div class="coin-pill">🪙 <strong id="coinCount">0</strong> coins</div>
+        <button class="avatar-button" id="soundToggle" title="Toggle sound">🔊</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="hero-tag">✨ YOUR DAILY ADVENTURE</span>
+        <h2 id="heroTitle">Ready for a super day?</h2>
+        <p id="heroText">Complete your missions, earn XP and unlock exciting rewards!</p>
+        <div class="level-row">
+          <span id="levelText">Level 1</span>
+          <span id="xpText">0 / 100 XP</span>
+        </div>
+        <div class="xp-track"><div id="xpBar"></div></div>
+      </div>
+      <div class="hero-toy" id="heroToy">🤖</div>
+      <span class="floating-toy toy-one" id="floatingToy1">🚀</span>
+      <span class="floating-toy toy-two" id="floatingToy2">🧩</span>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat"><span>📋</span><p>Total tasks</p><h2 id="totalCount">0</h2></article>
+      <article class="stat"><span>⏳</span><p>In progress</p><h2 id="pendingCount">0</h2></article>
+      <article class="stat"><span>⭐</span><p>Completed</p><h2 id="completedCount">0</h2></article>
+      <article class="stat"><span>🔥</span><p>Day streak</p><h2 id="streakCount">0</h2></article>
+    </section>
+
+    <section class="view active" id="tasksView">
+      <div class="section-head">
+        <div><h2>🎮 Your Missions</h2><p class="muted">Every completed task earns you rewards.</p></div>
+        <button class="primary-btn" id="addTaskBtn">＋ New Mission</button>
+      </div>
+      <div class="filters">
+        <input id="searchInput" placeholder="🔎 Search missions...">
+        <select id="statusFilter">
+          <option value="all">All tasks</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="today">Due today</option>
+        </select>
+        <select id="priorityFilter">
+          <option value="all">All priorities</option>
+          <option value="High">High priority</option>
+          <option value="Medium">Medium priority</option>
+          <option value="Low">Low priority</option>
+        </select>
+      </div>
+      <div id="taskList" class="task-list"></div>
+      <div id="emptyState" class="empty-state">
+        <div>🧸</div><h3>No missions yet!</h3><p>Create your first mission and start earning rewards.</p>
+        <button class="primary-btn" id="emptyAdd">Create a mission</button>
+      </div>
+    </section>
+
+    <section class="view" id="calendarView">
+      <div class="section-head"><div><h2>📅 Mission Calendar</h2><p class="muted">See what's coming up.</p></div></div>
+      <div class="panel">
+        <div class="calendar-head"><button class="icon-btn" id="prevMonth">‹</button><h3 id="monthLabel"></h3><button class="icon-btn" id="nextMonth">›</button></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div id="calendarDetails" class="calendar-details">Select a date to see your missions.</div>
+      </div>
+    </section>
+
+    <section class="view" id="goalsView">
+      <div class="section-head"><div><h2>🎯 My Daily Goals</h2><p class="muted">Build your own winning routine.</p></div></div>
+      <div class="panel goal-panel">
+        <h3>Today's mission target</h3>
+        <p class="muted">How many tasks would you like to complete today?</p>
+        <div class="goal-control"><input id="goalInput" type="number" min="1" max="50" value="3"><button class="primary-btn" id="saveGoal">Save Goal</button></div>
+        <div class="goal-progress"><div id="goalBar"></div></div>
+        <h2 id="goalText">0 / 3 completed</h2>
+        <p class="muted" id="goalMessage">You can do it! 🌟</p>
+      </div>
+    </section>
+
+    <section class="view" id="rewardsView">
+      <div class="section-head"><div><h2>🎁 Toy Reward Shop</h2><p class="muted">Spend your coins on fun virtual toys!</p></div><div class="coin-pill">🪙 <strong id="shopCoins">0</strong></div></div>
+      <div id="rewardGrid" class="reward-grid"></div>
+    </section>
+
+    <section class="view" id="achievementsView">
+      <div class="section-head"><div><h2>🏆 Achievement Room</h2><p class="muted">Collect badges as you make progress.</p></div></div>
+      <div id="badgeGrid" class="badge-grid"></div>
+    </section>
+
+    <section class="view" id="analyticsView">
+      <div class="section-head"><div><h2>📊 Your Progress</h2><p class="muted">A little progress every day adds up.</p></div></div>
+      <div class="analytics-grid">
+        <div class="panel"><h3>Task completion</h3><div class="big-number" id="analyticsPercent">0%</div><div class="goal-progress"><div id="analyticsBar"></div></div><p class="muted" id="analyticsSummary">No completed missions yet.</p></div>
+        <div class="panel"><h3>Priority breakdown</h3><div id="priorityChart" class="priority-chart"></div></div>
+      </div>
+    </section>
+
+    <footer>🧸 DuoTask Toy World · Play, plan and achieve!</footer>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="taskModal">
+  <form class="modal" id="taskForm">
+    <div class="modal-top"><div><h2 id="modalTitle">✨ New Mission</h2><p class="muted">Add your next adventure.</p></div><button type="button" class="close-btn" id="closeModal">×</button></div>
+    <label>Mission title *</label><input id="taskTitle" maxlength="80" placeholder="e.g. Complete my assignment" required>
+    <label>Description</label><textarea id="taskDescription" maxlength="250" rows="3" placeholder="Add mission details..."></textarea>
+    <div class="form-row"><div><label>Due date *</label><input type="date" id="taskDate" required></div><div><label>Priority</label><select id="taskPriority"><option>Medium</option><option>High</option><option>Low</option></select></div></div>
+    <button class="primary-btn full-btn" type="submit" id="saveTask">Save Mission</button>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
